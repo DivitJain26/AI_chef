@@ -5,7 +5,7 @@ export default function ClaudeRecipe(props) {
         ? <span className="loader"></span>
         : (props.recipe && 
             <section className="suggested-recipe-container" aria-live="polite">
-            <h2>Chef Claude Recommends:</h2>
+            <h2>AI Chef Recommends:</h2>
             <ReactMarkdown> 
                 {props.recipe}
             </ReactMarkdown>

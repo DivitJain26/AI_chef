@@ -4,7 +4,7 @@ export default function Header() {
     return(
         <nav>
             <img className="header--img" src={chef_clude_logo} alt="" />
-            <h1 className="header--title" >Chef Claude</h1>
+            <h1 className="header--title" >AI Chef</h1>
         </nav>
     );
 } 

@@ -9,6 +9,7 @@ export default function ClaudeRecipe(props) {
             <ReactMarkdown> 
                 {props.recipe}
             </ReactMarkdown>
+            <div ref={props.ref}></div>
             </section> 
         )    
     )

@@ -9,13 +9,10 @@ export default function Main() {
         ["all the main spices", "pasta", "ground beef", "tomato paste"]
         // []
     )
-
     const [recipe, setRecipe] = React.useState("")
-
-    const recipeSection = React.useRef(null) 
-
-    // Loader 
     const [loading, setLoading] = React.useState(false)
+    
+    const recipeSection = React.useRef(null)
 
     useEffect(() => {
         if (recipe !== "" && recipeSection.current !== null) {
@@ -25,10 +22,25 @@ export default function Main() {
 
     async function getRecipe() {
         setLoading(true)
-        const generatedRecipe = await getRecipeFromAi(ingredients) 
-        setRecipe(generatedRecipe)
-        setLoading(false)
+        setRecipe("")
+
+        let isFirstChunk = true;
+
+        await getRecipeFromAi(ingredients, (chunk) => {
+            if (isFirstChunk) {
+                setLoading(false); 
+                isFirstChunk = false; 
+            }
+            setRecipe((prevRecipe) => prevRecipe + chunk); 
+        });
     }
+
+    // async function getRecipe() {
+    //     setLoading(true)
+    //     const generatedRecipe = await getRecipeFromAi(ingredients) 
+    //     setRecipe(generatedRecipe)
+    //     setLoading(false)
+    // }
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient")
@@ -49,7 +61,7 @@ export default function Main() {
 
             {ingredients.length > 0 && <IngredientsList ref={recipeSection} ingredientsList={ingredients} getRecipe={getRecipe}/>}
 
-            <ClaudeRecipe recipe={recipe} loading={loading} />
+            <ClaudeRecipe recipe={recipe} loading={loading} ref={recipeSection}/>
 
         </main>
     )

@@ -10,20 +10,43 @@ markdown to make it easier to render to a web page
 
 const hf = new HfInference(import.meta.env.VITE_HF_ACCESS_TOKEN)
 
-export async function getRecipeFromAi(ingredientsArr) {
+// export async function getRecipeFromAi(ingredientsArr) {
+//     const ingredientsString = ingredientsArr.join(", ")
+//     try {
+//         const response = await hf.chatCompletion({
+//             model: "meta-llama/Meta-Llama-3-8B-Instruct",
+//             messages: [
+//                 { role: "user", content: PROMPT + ` I have ${ingredientsString}. Please give me a recipe you'd recommend I make!`},
+//             ],
+//             temperature: 0.5,
+//             max_tokens: 1024,
+//             top_p: 0.7
+//         })
+//         // console.log(response)
+//         return response.choices[0].message.content
+//     } catch (err) {
+//         console.error(err.message)
+//     } 
+// }
+
+export async function getRecipeFromAi(ingredientsArr, onChunk) {
     const ingredientsString = ingredientsArr.join(", ")
     try {
-        const response = await hf.chatCompletion({
+        const stream = hf.chatCompletionStream({
             model: "meta-llama/Meta-Llama-3-8B-Instruct",
             messages: [
                 { role: "user", content: PROMPT + ` I have ${ingredientsString}. Please give me a recipe you'd recommend I make!`},
             ],
             temperature: 0.5,
-            max_tokens: 1024,
+            max_tokens: 2024,
             top_p: 0.7
         })
-        // console.log(response)
-        return response.choices[0].message.content
+        for await (const chunk of stream) {
+            if (chunk.choices && chunk.choices.length > 0) {
+                const newContent = chunk.choices[0].delta.content;
+                onChunk(newContent)
+            }  
+        }
     } catch (err) {
         console.error(err.message)
     } 

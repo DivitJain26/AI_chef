@@ -25,6 +25,7 @@ export async function getRecipeFromAi(ingredientsArr, onChunk) {
         for await (const chunk of stream) {
             if (chunk.choices && chunk.choices.length > 0) {
                 const newContent = chunk.choices[0].delta.content;
+                // console.log(newContent)
                 onChunk(newContent)
             }  
         }

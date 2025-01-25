@@ -6,8 +6,8 @@ import { getRecipeFromAi } from "../ai"
 export default function Main() {
 
     const [ingredients, setIngredients] = React.useState(
-        ["all the main spices", "pasta", "ground beef", "tomato paste"]
-        // []
+        // ["all the main spices", "pasta", "ground beef", "tomato paste"]
+        []
     )
     const [recipe, setRecipe] = React.useState("")
     const [loading, setLoading] = React.useState(false)
@@ -34,13 +34,6 @@ export default function Main() {
             setRecipe((prevRecipe) => prevRecipe + chunk); 
         });
     }
-
-    // async function getRecipe() {
-    //     setLoading(true)
-    //     const generatedRecipe = await getRecipeFromAi(ingredients) 
-    //     setRecipe(generatedRecipe)
-    //     setLoading(false)
-    // }
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient")

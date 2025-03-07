@@ -7,7 +7,7 @@ export default function ClaudeRecipe(props) {
         : (props.recipe && 
             <section className="suggested-recipe-container" aria-live="polite">
             <h2>AI Chef Recommends:</h2>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}> 
+            <ReactMarkdown> 
                 {props.recipe}
             </ReactMarkdown>
             <div ref={props.ref}></div>

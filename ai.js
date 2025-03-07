@@ -14,7 +14,8 @@ export async function getRecipeFromAi(ingredientsArr, onChunk) {
     const ingredientsString = ingredientsArr.join(", ")
     try {
         const stream = hf.chatCompletionStream({
-            model: "mistralai/Mistral-7B-Instruct-v0.2",
+            // model: "mistralai/Mistral-7B-Instruct-v0.2", 
+            model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
             messages: [
                 { role: "user", content: PROMPT + ` I have ${ingredientsString}. Please give me a recipe you'd recommend I make!`},
             ],

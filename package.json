@@ -1,5 +1,4 @@
 {
-  "homepage": "https://github.com/DivitJain26/Ai-Chef/",
   "name": "chef_claude",
   "version": "0.0.0",
   "private": true,
@@ -9,8 +8,6 @@
   "type": "module",
   "main": "ai.js",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -22,8 +19,8 @@
     "openai": "^4.77.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-markdown": "^9.0.1",
-    "react-scripts": "^3.0.1"
+    "react-markdown": "^9.1.0",
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

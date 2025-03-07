@@ -14,7 +14,7 @@ export async function getRecipeFromAi(ingredientsArr, onChunk) {
     const ingredientsString = ingredientsArr.join(", ")
     try {
         const stream = hf.chatCompletionStream({
-            model: "meta-llama/Meta-Llama-3-8B-Instruct",
+            model: "mistralai/Mistral-7B-Instruct-v0.2",
             messages: [
                 { role: "user", content: PROMPT + ` I have ${ingredientsString}. Please give me a recipe you'd recommend I make!`},
             ],
@@ -25,6 +25,7 @@ export async function getRecipeFromAi(ingredientsArr, onChunk) {
         for await (const chunk of stream) {
             if (chunk.choices && chunk.choices.length > 0) {
                 const newContent = chunk.choices[0].delta.content;
+                // console.log(newContent)
                 onChunk(newContent)
             }  
         }

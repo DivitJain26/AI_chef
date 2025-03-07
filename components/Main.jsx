@@ -20,7 +20,9 @@ export default function Main() {
         }
     }, [recipe])
 
+    console.log(ingredients)
     async function getRecipe() {
+        // console.log("ran")
         setLoading(true)
         setRecipe("")
 
